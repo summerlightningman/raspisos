@@ -1,6 +1,6 @@
 <?php
 require 'model.php';
-require 'start.php';
+
 require_once 'view/header.php';
 
 drawTheTable(openTheFile());
