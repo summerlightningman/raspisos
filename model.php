@@ -25,9 +25,28 @@ style='font-size: 1.5rem;border-right: 1px solid black;vertical-align: middle' r
 
 function openTheFile()
 {
-    $file = fopen('assets/raspisos.xlsx', 'r')
-    or die('Файл расписоса отсутствует');
     $path = 'assets/raspisos.xlsx';
+
+    //downloading
+
+    $ch = curl_init( "http://cchgeu.ru/upload/iblock/e46/fitkb-osenniy-semestr-2018.xls" );
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+    $response = curl_exec($ch);
+
+    if( $response === false )
+    {
+        trigger_error(curl_error($ch), E_WARNING);
+    }
+    else
+    {
+        file_put_contents($path, $response);
+    }
+
+    curl_close($ch);
+
+    $file = fopen($path, 'r')
+    or die('Файл расписоса отсутствует');
     require_once 'imports/PHPExcel/IOFactory.php';
     $excel = PHPExcel_IOFactory::load($path) or die('Не открылось(');
     $sheet = $excel->getActiveSheet()->toArray(null);
