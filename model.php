@@ -7,20 +7,25 @@
  */
 function drawTheTable($a = array())
 {
-    foreach ($a as $row) {
-        echo '<tr>';
-        for ($i = 0; $i <= 5; $i++) {
-            if ($i == 0 && $row[$i] != null)
-                echo "<td 
-style='font-size: 1.5rem;border-right: 1px solid black;vertical-align: middle' rowspan='2'; 
->$row[$i]</td>";
-            elseif ($row[$i] == null && $i == 0)
-                continue;
-            else
-                echo "<td>$row[$i]</td>";
-        }
-        echo '</tr>';
-    }
+    echo '<tr>';
+    echo "<td style='font-size: 1.5rem; border-right: 1px solid black;vertical-align: middle' rowspan='2'>8:00 - 8:30</td>"; // Время
+    echo "<td></td><td>{$a[22][10]}</td><td>{$a[34][10]}</td><td></td><td></td></tr>";                                       // числитель
+    echo "<tr><td>{$a[10][9]}</td><td></td><td>{$a[34][10]}</td><td></td><td></td></tr>";                                                // знаменатель
+    echo "<tr><td style='font-size: 1.5rem; border-right: 1px solid black;vertical-align: middle' rowspan='2'>8:45 - 9:30</td>"; //
+    echo "<td></td><td>{$a[22][10]}</td><td>{$a[36][10]}</td><td></td><td>{$a[60][2]}</td></tr>";
+    echo "<tr><td>{$a[10][9]}</td><td></td><td>{$a[37][10]}</td><td></td><td>{$a[61][2]}</td></tr>";
+    echo '<tr>';
+    echo "<td style='font-size: 1.5rem; border-right: 1px solid black;vertical-align: middle' rowspan='2'>9:45 - 11:15</td>"; // Время
+    echo "<td>{$a[14][8]}</td><td></td><td>{$a[38][8]}</td><td></td><td>{$a[62][10]}</td></tr>";                                       // числитель
+    echo "<tr><td>{$a[15][8]}</td><td></td><td>{$a[38][8]}</td><td>{$a[49][10]}</td><td></td></tr>";                                   // знаменатель
+
+    echo "<td style='font-size: 1.5rem; border-right: 1px solid black;vertical-align: middle' rowspan='2'>11:30 - 13:00</td>"; // Время
+    echo "<td>{$a[16][8]}</td><td></td><td>{$a[40][10]}</td><td>{$a[50][10]}</td><td></td></tr>";                                       // числитель
+    echo "<tr><td>{$a[17][10]}</td><td></td><td></td><td>{$a[51][10]}</td><td></td></tr>";                                              // знаменатель
+
+    echo "<td style='font-size: 1.5rem; border-right: 1px solid black;vertical-align: middle' rowspan='2'>13:30 - 15:00</td>"; // Время
+    echo "<td></td><td></td><td></td><td>{$a[52][8]}</td><td></td></tr>";                                       // числитель
+    echo "<tr><td></td><td></td><td></td><td>{$a[52][8]}</td><td></td></tr>";                                              // знаменатель
 }
 
 function openTheFile()
@@ -49,6 +54,7 @@ function openTheFile()
     or die('Файл расписоса отсутствует');
     require_once 'imports/PHPExcel/IOFactory.php';
     $excel = PHPExcel_IOFactory::load($path) or die('Не открылось(');
+    $excel->setActiveSheetIndex(1);
     $sheet = $excel->getActiveSheet()->toArray(null);
     return $sheet;
 }
